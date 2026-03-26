@@ -1,22 +1,15 @@
-import React, { useState, useEffect } from "react";
-import eventBus from "shared/eventBus";
-import "./Navbar.css";
+import React, { useState, useEffect } from 'react';
+import eventBus from 'shared/eventBus';
+import './Navbar.css';
 
 function Navbar() {
   const [notifications, setNotifications] = useState(0);
 
   useEffect(() => {
-    // TODO: quand un joueur rejoint une partie, incrementer le badge notifications
-    // Penser au cleanup React
-    const handleJoinGame = (data) => {
-      setNotifications((prev) => prev + 1);
-      console.log("[Navbar] Reçu de l'EventBus :", data);
-    };
-    eventBus.on("joinGame", handleJoinGame);
-
-    return () => {
-      eventBus.off("joinGame", handleJoinGame);
-    };
+    const unsub = eventBus.on('game:joined', () => {
+      setNotifications(prev => prev + 1);
+    });
+    return () => unsub();
   }, []);
 
   return (
