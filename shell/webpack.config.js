@@ -41,12 +41,11 @@ module.exports = {
   },
   plugins: [
     new ModuleFederationPlugin({
-      // TODO 1: Donner un nom au Shell
       name: "shell",
-      // TODO 2: Configurer les remotes (vide pour l'instant)
-      remotes: {},
-
-      // TODO 3: Configurer les dependances partagees
+      // TODO: declarer mfe-header comme remote (il tourne sur le port 3001)
+      remotes: {
+        mfe_header: "mfe_header@http://localhost:3001/remoteEntry.js",
+      },
       shared: {
         react: { singleton: true, requiredVersion: "^18.2.0" },
         "react-dom": { singleton: true, requiredVersion: "^18.2.0" },
