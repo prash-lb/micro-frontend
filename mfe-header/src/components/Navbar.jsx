@@ -4,18 +4,20 @@ import "./Navbar.css";
 
 function Navbar() {
   const [notifications, setNotifications] = useState(0);
-
+  const [cartCount, setCartCount] = useState(0);
   useEffect(() => {
     const unsub = eventBus.on("game:joined", () => {
       setNotifications((prev) => prev + 1);
     });
-    return () => unsub();
+    const unsubCart = eventBus.on("cart:updated", (data) => {
+      setCartCount(data.count);
+    });
+    return () => {
+      unsub();
+      unsubCart();
+    };
   }, []);
 
-  useEffect(() => {
-    const unsubscribe = eventBus.on("cart:updated", (data) => {});
-    return () => unsubscribe();
-  }, []);
   return (
     <nav className="navbar">
       <div className="navbar-brand">

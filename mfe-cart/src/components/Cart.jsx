@@ -7,26 +7,31 @@ function Cart() {
 
   useEffect(() => {
     // TODO 1: s'abonner aux ajouts au panier et mettre a jour le state items
-    const handleAddToCart = (item) => {
-      setItems((prev) => [...prev, { ...item, cartId: Date.now() }]);
+    const handleAdd = (product) => {
+      setItems((prev) => [
+        ...prev,
+        {
+          ...product,
+          cartId: Date.now() + Math.random(),
+        },
+      ]);
     };
 
-    eventBus.on("cart:add", handleAddToCart);
+    const unsub = eventBus.on("cart:add", handleAdd);
 
-    return () => {
-      eventBus.off("cart:add", handleAddToCart);
-    };
+    return () => unsub();
   }, []);
 
   useEffect(() => {
     // TODO 2: emettre un evenement quand le panier change
-    const total = items.reduce((sum, item) => sum + item.price, 0);
+    const totalAmount = items.reduce((sum, item) => sum + item.price, 0);
+
     eventBus.emit("cart:updated", {
       count: items.length,
-      total: total,
+      total: totalAmount,
     });
 
-    console.log(`[Cart] updated : ${items.length} articles, Total: ${total}€`);
+    console.log("[Cart] Mise à jour émise vers la Navbar", items.length);
   }, [items]);
 
   const handleRemove = (cartId) => {
