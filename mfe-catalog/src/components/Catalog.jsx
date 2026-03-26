@@ -17,7 +17,9 @@ function ProductCard({ product }) {
     eventBus.emit("cart:add", {
       productId: product.id,
       productName: product.name,
+      productPrice: product.price,
     });
+    alert(`Vous avez ajouté : ${product.name}`);
   };
 
   return (
