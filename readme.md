@@ -1,32 +1,44 @@
-# CP6 — Le Panier
+# CP9 — La Résilience
 
-Télécharge le zip **checkpoint6** depuis Teams.
+> ⏱ 15 min — Compétences couvertes : C3, C14
+
+Télécharge le zip **checkpoint9** depuis Teams.
+
+---
+
+## Lancer (5 terminaux)
 
 ```bash
-T1 : cd mfe-header  && npm install && npm start  # 3001
-T2 : cd mfe-lobby   && npm install && npm start  # 3002
-T3 : cd mfe-catalog && npm install && npm start  # 3003
-T4 : cd mfe-cart    && npm install && npm start  # 3004
-T5 : cd shell       && npm install && npm start  # 3000
+T1 : cd mfe-header  && npm install && npm start   # 3001
+T2 : cd mfe-lobby   && npm install && npm start   # 3002
+T3 : cd mfe-catalog && npm install && npm start   # 3003
+T4 : cd mfe-cart    && npm install && npm start   # 3004
+T5 : cd shell       && npm install && npm start   # 3000
 ```
 
 ---
 
 ## Mission
 
-`mfe-cart/src/components/Cart.jsx` — 2 useEffects à compléter.
+Tout fonctionne. Maintenant **tue des services** et observe.
 
-**useEffect 1 — écoute**
-→ Abonne-toi à `cart:add` et ajoute chaque produit reçu au state `items`
+**Étape 1** : Dans le terminal du Lobby (T2), appuie sur `Ctrl+C`
+→ Observe `localhost:3000`. Que se passe-t-il ?
 
-**useEffect 2 — émission**
-→ Quand `items` change, notifie l'eventBus que le panier a changé
-→ L'événement doit contenir le nombre d'articles et le total
+**Étape 2** : Relance le Lobby (`npm start`)
+→ Il revient sans redémarrer les autres.
+
+**Étape 3** : Tue le Catalog (T3), puis le Cart (T4)
+→ Les autres MFEs restent-ils affectés ?
+
+**Étape 4** : Prépare ta réponse — pourquoi un MFE cassé n'arrête pas les autres ?
 
 ---
 
 ## Validation
 
-- Cliquer "Ajouter" dans Catalog → item apparaît dans Cart
-- Console : `[EventBus] cart:updated` visible à chaque ajout
-- Push ta branche
+Tu peux expliquer pourquoi un MFE qui crash n'arrête pas les autres.
+
+---
+
+📤 Push ta branche
